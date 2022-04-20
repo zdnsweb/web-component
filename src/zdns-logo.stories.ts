@@ -10,10 +10,11 @@ export default {
 } as Meta;
 
 export interface ElementProps {
+  theme?: string;
 }
 
 // More on component templates: https://storybook.js.org/docs/web-components/writing-stories/introduction#using-args
-const Template: Story<ElementProps> = ({}) => html`<zdns-logo></zdns-logo>`;
+const Template: Story<ElementProps> = () => html`<zdns-logo></zdns-logo>`;
 
 export const Basic = Template.bind({});
 

@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 @customElement('remark-element')
-class ZDNSLogo extends LitElement {
+export class ZDNSLogo extends LitElement {
   static override styles = css`
     :host {
       display: flex;
@@ -11,10 +11,6 @@ class ZDNSLogo extends LitElement {
       height: inherit;
     }
   `;
-
-  constructor() {
-    super();
-  }
 
   override render() {
     return html`${unsafeHTML(this.svg())}`;
