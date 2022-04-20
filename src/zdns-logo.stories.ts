@@ -17,3 +17,4 @@ export interface ElementProps {
 const Template: Story<ElementProps> = () => html`<zdns-logo></zdns-logo>`;
 
 export const Basic = Template.bind({});
+
