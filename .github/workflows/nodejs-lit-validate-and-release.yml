@@ -31,6 +31,13 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
         with:
