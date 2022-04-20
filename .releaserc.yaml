@@ -1,4 +1,4 @@
-repositoryUrl: https://github.com/zdnsweb/web-component.git"
+repositoryUrl: https://github.com/zdnsweb/web-component.git
 plugins:
   - '@semantic-release/commit-analyzer'
   - '@semantic-release/release-notes-generator'
