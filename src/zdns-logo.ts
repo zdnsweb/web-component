@@ -18,6 +18,13 @@ export class ZDNSLogo extends LitElement {
   @property({ type: String, attribute: 'secondary-color', reflect: true })
   secondaryColor: string = '#abf84c';
 
+  override attributeChangedCallback(name, _old, value) {
+    super.attributeChangedCallback(name, _old, value);
+    if (name === 'primary-color') this.primaryColor = value;
+    if (name === 'secondary-color') this.secondaryColor = value;
+    this.requestUpdate(name, _old);
+  }
+
   override render() {
     return html`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.21 36.89">
