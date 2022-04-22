@@ -3,7 +3,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 @customElement('zdns-logo')
 export class ZDNSLogo extends LitElement {
-
   static override styles = css`
     :host {
       display: flex;
