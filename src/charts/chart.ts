@@ -19,7 +19,7 @@ export class ChartBase extends LitElement {
   `;
 
   get chartContainer() {
-    return this.renderRoot.querySelector('#container');
+    return this.renderRoot.querySelector('#container') as HTMLDivElement;
   }
 
   chart: echarts.EChartsType;
@@ -61,7 +61,7 @@ export class ChartBase extends LitElement {
     }
   }
 
-  firstUpdated() {
+  override firstUpdated() {
     console.log(this.chartContainer);
     // this.chartContainer = this.shadowRoot?.getElementById('container');
     // console.log(this.chartContainer);

@@ -74,10 +74,6 @@ export class LineChart extends ChartBase {
       toolbox: {
         show: false,
       },
-      grid: {
-        x: 80,
-        x2: 80,
-      },
       xAxis: [
         {
           type: 'category',

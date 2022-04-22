@@ -17,7 +17,7 @@ export class ChartBase extends LitElement {
   `;
 
   get chartContainer() {
-    return this.renderRoot.querySelector('#container');
+    return this.renderRoot.querySelector('#container') as HTMLDivElement;
   }
 
   chart: echarts.ECharts | null;
