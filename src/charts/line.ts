@@ -52,13 +52,7 @@ export class LineChart extends ChartBase {
   }
 
   override firstUpdated() {
-    this.chart = echarts.init(
-      this.chartContainer,
-      {},
-      {
-        renderer: this.renderer,
-      },
-    );
+    super.firstUpdated();
 
     this.chart.setOption(this.options);
   }

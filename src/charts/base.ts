@@ -47,6 +47,7 @@ export class ChartBase extends LitElement {
 
   override firstUpdated() {
     this.chart = echarts.init(this.chartContainer, {}, { renderer: this.renderer });
+    // TODO: Add ResizeObserver observe parentElement resize
   }
 
   override render() {
