@@ -10,8 +10,8 @@ export default {
 } as Meta;
 
 export interface ElementProps {
-  width: string,
-  height: string,
+  width: string;
+  height: string;
   animation: boolean;
   smooth: boolean;
   name: string;
@@ -21,7 +21,16 @@ export interface ElementProps {
 }
 
 // More on component templates: https://storybook.js.org/docs/web-components/writing-stories/introduction#using-args
-const Template: Story<ElementProps> = ({ width, height, animation, smooth, name, axis, data, serieStyle }) =>
+const Template: Story<ElementProps> = ({
+  width,
+  height,
+  animation,
+  smooth,
+  name,
+  axis,
+  data,
+  serieStyle,
+}) =>
   html`<div style="width: ${width}; height: ${height};">
     <line-chart
       ?animation=${animation}
@@ -45,7 +54,6 @@ Basic.args = {
   data: [],
 };
 
-
 export const WithData = Template.bind({});
 
 WithData.args = {
@@ -54,7 +62,7 @@ WithData.args = {
   animation: true,
   smooth: true,
   name: 'line',
-  axis: ["2017", "2018", "2019", "2020", "2021", "2022"],
+  axis: ['2017', '2018', '2019', '2020', '2021', '2022'],
   data: [37, 42, 58, 61, 27, 24],
 };
 
@@ -66,7 +74,7 @@ WithSerieStyle.args = {
   animation: false,
   smooth: true,
   name: 'line',
-  axis: ["2017", "2018", "2019", "2020", "2021", "2022"],
+  axis: ['2017', '2018', '2019', '2020', '2021', '2022'],
   data: [37, 42, 58, 61, 27, 24],
   serieStyle: { normal: { areaStyle: { type: 'default' } } },
 };

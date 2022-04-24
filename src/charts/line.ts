@@ -1,24 +1,9 @@
-import { css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import * as echarts from 'echarts';
 import { ChartBase } from './base';
 
 @customElement('line-chart')
 export class LineChart extends ChartBase {
-  static override styles = css`
-    :host {
-      display: flex;
-      width: inherit;
-      height: inherit;
-    }
-    #container {
-      display: flex;
-      flex: 1 1 auto;
-      width: 640px;
-      height: inherit;
-    }
-  `;
-
   @property({ type: String, attribute: true })
   name: string = '';
 
@@ -53,9 +38,10 @@ export class LineChart extends ChartBase {
       this.requestUpdate(name, _old);
     }
     if (name === 'serie-style') {
-      this.serieStyle = JSON.parse(value ?? '{}');
-      console.log('serieStyle: %s %s ', this.serieStyle, JSON.parse(value ?? '{}'));
-      this.requestUpdate(name, _old);
+      try {
+        this.serieStyle = JSON.parse(value ?? '{}');
+        this.requestUpdate(name, _old);
+      } catch (e) {}
     }
     if (name === 'smooth') {
       this.smooth = value != null;
@@ -65,12 +51,6 @@ export class LineChart extends ChartBase {
       this.animation = value != null;
       this.requestUpdate(name, _old);
     }
-  }
-
-  override updated(_p) {
-    super.updated(_p);
-
-    this.updateChart();
   }
 
   override get options() {

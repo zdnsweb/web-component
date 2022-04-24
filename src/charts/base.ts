@@ -32,13 +32,12 @@ export class ChartBase extends LitElement {
 
   override disconnectedCallback() {
     super.disconnectedCallback();
-    this.resizeObserver.unobserve(this.parentElement);
+    this.resizeObserver?.unobserve(this.parentElement);
     this.chart?.dispose();
   }
 
   override firstUpdated() {
     this.chart = echarts.init(this.chartContainer, {}, { renderer: this.renderer });
-    // TODO: Add ResizeObserver observe parentElement resize
     this.resizeObserver = new ResizeObserver((_entries) => {
       this.chart.resize();
     });
@@ -49,11 +48,18 @@ export class ChartBase extends LitElement {
     return html` <div id="container"></div> `;
   }
 
+  override updated(_p) {
+    super.updated(_p);
+
+    this.updateChart();
+  }
+
   updateChart() {
     this.chart.setOption(this.options);
   }
 
   get options() {
-    return {};
+    const data = JSON.parse(this.innerHTML);
+    return data;
   }
 }
