@@ -10,8 +10,10 @@ module.exports = {
     browser: true,
   },
   rules: {
+    'no-empty': 0,
     '@babel/new-cap': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-implicit-any-catch': 'off',
     '@typescript-eslint/no-unnecessary-condition': 'off',
     '@typescript-eslint/no-unnecessary-type-assertion': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',

@@ -41,7 +41,9 @@ export class LineChart extends ChartBase {
       try {
         this.serieStyle = JSON.parse(value ?? '{}');
         this.requestUpdate(name, _old);
-      } catch (e) {}
+      } catch (e) {
+        console.error(e);
+      }
     }
     if (name === 'smooth') {
       this.smooth = value != null;

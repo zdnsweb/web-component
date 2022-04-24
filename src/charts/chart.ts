@@ -1,7 +1,6 @@
 /** eslint-disable */
 /** not finished */
-import { customElement, property } from 'lit/decorators.js';
-import * as echarts from 'echarts';
+import { customElement } from 'lit/decorators.js';
 
 import { ChartBase } from './base';
 
