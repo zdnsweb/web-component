@@ -55,7 +55,7 @@ export class ChartBase extends LitElement {
     super.attributeChangedCallback(name, _old, value);
     if (name === 'loading') {
       this.loading = value != null;
-      this.chart.setOption(this.options, true);
+      this.resetChart()
     }
   }
 
@@ -71,6 +71,10 @@ export class ChartBase extends LitElement {
 
   updateChart() {
     this.chart.setOption(this.options);
+  }
+
+  resetChart() {
+    this.chart.setOption(this.options, true);
   }
 
   get options() {
