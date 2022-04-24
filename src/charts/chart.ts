@@ -23,7 +23,6 @@ export class Chart extends ChartBase {
   }
 
   override get options() {
-    console.log(this.textContent);
     const data = JSON.parse(this.textContent);
     return data;
   }
