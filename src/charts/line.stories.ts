@@ -12,6 +12,7 @@ export default {
 export interface ElementProps {
   width: string;
   height: string;
+  loading: boolean;
   animation: boolean;
   smooth: boolean;
   name: string;
@@ -24,6 +25,7 @@ export interface ElementProps {
 const Template: Story<ElementProps> = ({
   width,
   height,
+  loading,
   animation,
   smooth,
   name,
@@ -33,6 +35,7 @@ const Template: Story<ElementProps> = ({
 }) =>
   html`<div style="width: ${width}; height: ${height};">
     <line-chart
+      ?loading=${loading}
       ?animation=${animation}
       ?smooth=${smooth}
       name=${name}
@@ -47,6 +50,7 @@ export const Basic = Template.bind({});
 Basic.args = {
   width: '640px',
   height: '480px',
+  loading: true,
   animation: true,
   smooth: false,
   name: 'line',

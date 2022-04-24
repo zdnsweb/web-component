@@ -56,6 +56,7 @@ export class LineChart extends ChartBase {
   }
 
   override get options() {
+    if (this.loading) return this.loadingOptions;
     const s = this.axis;
     const d = this.data;
     const options: echarts.EChartOption = {

@@ -22,6 +22,9 @@ export class Chart extends ChartBase {
   }
 
   override get options() {
+    if (this.loading) {
+      return this.loadingOptions;
+    }
     const data = JSON.parse(this.textContent);
     return data;
   }

@@ -26,6 +26,9 @@ export class ChartBase extends LitElement {
   @property({ type: String, attribute: true })
   renderer: string = 'svg';
 
+  @property({ type: Boolean, attribute: true, reflect: true })
+  loading: boolean = false;
+
   override connectedCallback() {
     super.connectedCallback();
   }
@@ -44,6 +47,18 @@ export class ChartBase extends LitElement {
     this.resizeObserver.observe(this.parentElement);
   }
 
+  override attributeChangedCallback(
+    name: string,
+    _old: string | null,
+    value: string | null,
+  ): void {
+    super.attributeChangedCallback(name, _old, value);
+    if (name === 'loading') {
+      this.loading = value != null;
+      this.chart.setOption(this.options, true);
+    }
+  }
+
   override render() {
     return html` <div id="container"></div> `;
   }
@@ -59,7 +74,53 @@ export class ChartBase extends LitElement {
   }
 
   get options() {
-    const data = JSON.parse(this.innerHTML);
-    return data;
+    if (this.loading) {
+      return this.loadingOptions;
+    }
+    return {};
+  }
+
+  get loadingOptions() {
+    return {
+      graphic: {
+        elements: [
+          {
+            type: 'group',
+            left: 'center',
+            top: 'center',
+            children: new Array(7).fill(0).map((_val, i) => ({
+              type: 'rect',
+              x: i * 20,
+              shape: {
+                x: 0,
+                y: -40,
+                width: 10,
+                height: 80,
+              },
+              style: {
+                fill: '#5470c6',
+              },
+              keyframeAnimation: {
+                duration: 1000,
+                delay: i * 200,
+                loop: true,
+                keyframes: [
+                  {
+                    percent: 0.5,
+                    scaleY: 0.3,
+                    easing: 'cubicIn',
+                  },
+                  {
+                    percent: 1,
+                    scaleY: 1,
+                    easing: 'cubicOut',
+                  },
+                ],
+              },
+            })),
+          },
+        ],
+      },
+    };
   }
 }

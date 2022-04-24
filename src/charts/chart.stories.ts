@@ -12,13 +12,14 @@ export default {
 export interface ElementProps {
   width: string;
   height: string;
+  loading: boolean;
   data: object;
 }
 
 // More on component templates: https://storybook.js.org/docs/web-components/writing-stories/introduction#using-args
-const Template: Story<ElementProps> = ({ width, height, data }) =>
+const Template: Story<ElementProps> = ({ width, height, loading, data }) =>
   html`<div style="width: ${width}; height: ${height};">
-    <g-chart>${JSON.stringify(data)}</g-chart>
+    <g-chart ?loading=${loading}>${JSON.stringify(data)}</g-chart>
   </div>`;
 
 export const Top = Template.bind({});
@@ -26,6 +27,7 @@ export const Top = Template.bind({});
 Top.args = {
   width: '640px',
   height: '480px',
+  loading: false,
   data: {
     tooltip: {
       show: true,
@@ -64,6 +66,7 @@ export const Pie = Template.bind({});
 Pie.args = {
   width: '640px',
   height: '480px',
+  loading: false,
   data: {
     tooltip: {
       trigger: 'item',
@@ -93,6 +96,7 @@ export const Line = Template.bind({});
 Line.args = {
   width: '100%',
   height: '480px',
+  loading: false,
   data: {
     tooltip: {
       trigger: 'axis',
@@ -126,5 +130,104 @@ Line.args = {
         data: [400, 500, 1000, 2000, 4000, 2000, 3000, 2000],
       },
     ],
+  },
+};
+
+export const Radar = Template.bind({});
+
+Radar.args = {
+  width: '100%',
+  height: '480px',
+  loading: false,
+  data: {
+    title: {
+      text: 'Basic Radar Chart',
+    },
+    legend: {
+      data: ['Allocated Budget', 'Actual Spending'],
+    },
+    radar: {
+      // shape: 'circle',
+      indicator: [
+        { name: 'Sales', max: 6500 },
+        { name: 'Administration', max: 16000 },
+        { name: 'Information Technology', max: 30000 },
+        { name: 'Customer Support', max: 38000 },
+        { name: 'Development', max: 52000 },
+        { name: 'Marketing', max: 25000 },
+      ],
+    },
+    series: [
+      {
+        name: 'Budget vs spending',
+        type: 'radar',
+        data: [
+          {
+            value: [4200, 3000, 20000, 35000, 50000, 18000],
+            name: 'Allocated Budget',
+          },
+          {
+            value: [5000, 14000, 28000, 26000, 42000, 21000],
+            name: 'Actual Spending',
+          },
+        ],
+      },
+    ],
+  },
+};
+
+export const Graph = Template.bind({});
+
+Graph.args = {
+  width: '100%',
+  height: '480px',
+  loading: false,
+  data: {
+    graphic: {
+      elements: [
+        {
+          type: 'text',
+          left: 'center',
+          top: 'center',
+          style: {
+            text: 'Best in the World!',
+            fontSize: 80,
+            fontWeight: 'bold',
+            lineDash: [0, 200],
+            lineDashOffset: 0,
+            fill: 'transparent',
+            stroke: '#000',
+            lineWidth: 1,
+          },
+          keyframeAnimation: {
+            duration: 3000,
+            loop: true,
+            keyframes: [
+              {
+                percent: 0.7,
+                style: {
+                  fill: 'transparent',
+                  lineDashOffset: 200,
+                  lineDash: [200, 0],
+                },
+              },
+              {
+                // Stop for a while.
+                percent: 0.8,
+                style: {
+                  fill: 'transparent',
+                },
+              },
+              {
+                percent: 1,
+                style: {
+                  fill: 'orange',
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
   },
 };
