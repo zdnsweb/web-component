@@ -21,6 +21,7 @@ export class ChartBase extends LitElement {
   }
 
   chart: echarts.ECharts | null;
+  resizeObserver: ResizeObserver | null;
 
   @property({ type: String, attribute: true })
   renderer: string = 'svg';
@@ -31,26 +32,28 @@ export class ChartBase extends LitElement {
 
   override disconnectedCallback() {
     super.disconnectedCallback();
+    this.resizeObserver.unobserve(this.parentElement);
     this.chart?.dispose();
-  }
-
-  override attributeChangedCallback(
-    name: string,
-    _old: string | null,
-    value: string | null,
-  ): void {
-    if (name === 'options') {
-      const opt = JSON.parse(value ?? '{}');
-      this.chart?.setOption(opt);
-    }
   }
 
   override firstUpdated() {
     this.chart = echarts.init(this.chartContainer, {}, { renderer: this.renderer });
     // TODO: Add ResizeObserver observe parentElement resize
+    this.resizeObserver = new ResizeObserver((_entries) => {
+      this.chart.resize();
+    });
+    this.resizeObserver.observe(this.parentElement);
   }
 
   override render() {
     return html` <div id="container"></div> `;
+  }
+
+  updateChart() {
+    this.chart.setOption(this.options);
+  }
+
+  get options() {
+    return {};
   }
 }

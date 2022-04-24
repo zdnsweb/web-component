@@ -26,41 +26,58 @@ export class LineChart extends ChartBase {
   axis = [];
   @property({ type: Object, attribute: true, reflect: true })
   data = [];
+  @property({ type: Object, attribute: 'serie-style', reflect: true })
+  serieStyle = {};
+
+  @property({ type: Boolean, attribute: true, reflect: true })
+  smooth: boolean = false;
+  @property({ type: Boolean, attribute: true, reflect: true })
+  animation: boolean = false;
 
   override attributeChangedCallback(
     name: string,
     _old: string | null,
     value: string | null,
   ): void {
-    console.log(name, _old, value);
+    super.attributeChangedCallback(name, _old, value);
     if (name === 'name') {
       this.name = value ?? '';
-      this.chart?.setOption(this.options);
       this.requestUpdate(name, _old);
     }
     if (name === 'axis') {
       this.axis = JSON.parse(value ?? '[]');
-      this.chart?.setOption(this.options);
       this.requestUpdate(name, _old);
     }
     if (name === 'data') {
       this.data = JSON.parse(value ?? '[]');
-      this.chart?.setOption(this.options);
       this.requestUpdate(name, _old);
     }
-    console.log(this.options);
+    if (name === 'serie-style') {
+      this.serieStyle = JSON.parse(value ?? '{}');
+      console.log('serieStyle: %s %s ', this.serieStyle, JSON.parse(value ?? '{}'));
+      this.requestUpdate(name, _old);
+    }
+    if (name === 'smooth') {
+      this.smooth = value != null;
+      this.requestUpdate(name, _old);
+    }
+    if (name === 'animation') {
+      this.animation = value != null;
+      this.requestUpdate(name, _old);
+    }
   }
 
-  override firstUpdated() {
-    super.firstUpdated();
+  override updated(_p) {
+    super.updated(_p);
 
-    this.chart.setOption(this.options);
+    this.updateChart();
   }
 
-  get options() {
+  override get options() {
     const s = this.axis;
     const d = this.data;
     const options: echarts.EChartOption = {
+      animation: this.animation,
       tooltip: {
         trigger: 'axis',
         formatter: '{b}<br/>{a} : {c}',
@@ -84,13 +101,12 @@ export class LineChart extends ChartBase {
         {
           name: this.name,
           type: 'line',
-          smooth: true,
-          itemStyle: { normal: { areaStyle: { type: 'default' } } },
+          smooth: this.smooth,
+          itemStyle: this.serieStyle,
           data: d,
         },
       ],
     };
-    console.log('options', options);
     return options;
   }
 }

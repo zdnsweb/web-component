@@ -62,9 +62,6 @@ export class ChartBase extends LitElement {
   }
 
   override firstUpdated() {
-    console.log(this.chartContainer);
-    // this.chartContainer = this.shadowRoot?.getElementById('container');
-    // console.log(this.chartContainer);
     this.chart = echarts.init(this.chartContainer, {}, { renderer: this.renderer });
   }
 
@@ -72,7 +69,12 @@ export class ChartBase extends LitElement {
     return html` <div id="container"></div> `;
   }
 
-  setOptions(opt) {
+  updateChart() {
+    this.chart.setOption(this.options);
+  }
+
+  setOptions(opt, _reset) {
+    this.options = opt;
     this.chart.setOption(opt);
   }
 }
