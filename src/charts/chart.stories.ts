@@ -87,3 +87,44 @@ Pie.args = {
     ],
   },
 };
+
+export const Line = Template.bind({});
+
+Line.args = {
+  width: '100%',
+  height: '480px',
+  data: {
+    tooltip: {
+      trigger: 'axis',
+      formatter: '{b}<br/>{a} : ${c}',
+    },
+    toolbox: {
+      show: false,
+    },
+    grid: {
+      x: 80,
+      x2: 80,
+    },
+    xAxis: [
+      {
+        type: 'category',
+        boundaryGap: false,
+        data: ['2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'],
+      },
+    ],
+    yAxis: [
+      {
+        type: 'value',
+      },
+    ],
+    series: [
+      {
+        name: 'ETH Price',
+        type: 'line',
+        smooth: true,
+        itemStyle: { normal: { areaStyle: { type: 'default' } } },
+        data: [400, 500, 1000, 2000, 4000, 2000, 3000, 2000],
+      },
+    ],
+  },
+};
